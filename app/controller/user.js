@@ -102,6 +102,60 @@ class UserController extends Controller {
             }
           }
     }
+
+    // 获取用户信息
+    async getUserInfo() {
+        const { ctx, app} = this;
+        const token = ctx.request.header.authorization;
+        const decode = await app.jwt.verify(token, app.config.jwt.secret);
+        const userInfo = await ctx.service.user.getUserByName(decode.username)
+
+        ctx.body = {
+            code: 200,
+            msg: '请求成功',
+            data: {
+                id: userInfo.id,
+                username: userInfo.username,
+                signature: userInfo.signature || '',
+                avatar: userInfo.avatar || defaultAvatar
+            }
+        }
+    }
+
+    // 修改个性签名
+    async editUserInfo() {
+        const { ctx, app} = this;
+        const { signature = '' } = ctx.request.body
+        try {
+            let user_id
+            const token = ctx.request.header.authorization;
+            const decode = await app.jwt.verify(token, app.config.jwt.secret);
+            if (!decode) return
+            user_id = decode.id
+            const userInfo = await ctx.service.user.getUserByName(decode.username)
+
+            const result = await ctx.service.user.editUserInfo({
+                ...userInfo,
+                signature
+            });
+
+            ctx.body = {
+                code: 200,
+                msg: '请求成功',
+                data: {
+                    id: user_id,
+                    signature,
+                    username: userInfo.username
+                }
+            }
+        } catch(err) {
+            console.log(err)
+            ctx.body = {
+                code: 500,
+                msg: '请求错误',
+            }
+        }
+    }
 }
 
 module.exports = UserController;
