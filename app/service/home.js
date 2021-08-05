@@ -4,9 +4,9 @@ const Service = require('egg').Service;
 
 class HomeService extends Service {
   async user() {
-    const { ctx, app } = this;
+    const { app } = this;
     const QUERY_STR = 'id, name';
-    let sql = `select ${QUERY_STR} from list`; // 获取 id 的 sql 语句
+    const sql = `select ${QUERY_STR} from list`; // 获取 id 的 sql 语句
     try {
       const result = await app.mysql.query(sql); // mysql 实例已经挂载到 app 对象下，可以通过 app.mysql 获取到。
       return result;
@@ -14,18 +14,17 @@ class HomeService extends Service {
       console.log(error);
       return null;
     }
-    return result;
   }
 
   // 新增
   async addUser(name) {
-    const { ctx, app } = this;
+    const { app } = this;
     try {
-        const result = await app.mysql.insert('list', { name });
-        return result;
-    } catch {
-        console.log(error);
-        return null;
+      const result = await app.mysql.insert('list', { name });
+      return result;
+    } catch (error) {
+      console.log(error);
+      return null;
     }
   }
 }
