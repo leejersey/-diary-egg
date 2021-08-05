@@ -16,7 +16,7 @@ class HomeController extends Controller {
     const { ctx } = this;
     const { name } = ctx.request.body;
     try {
-      const result = await ctx.service.home.addUser();
+      const result = await ctx.service.home.addUser(name);
       ctx.body = {
         code: 200,
         msg: '添加成功',
