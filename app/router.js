@@ -15,6 +15,7 @@ module.exports = app => {
   router.post('/api/user/edit_userinfo', _jwt, controller.user.editUserInfo);
 
   router.post('/api/bill/add', _jwt, controller.bill.add);
+  router.get('/api/bill/list', _jwt, controller.bill.list);
 
   router.post('/api/upload', _jwt, controller.upload.upload);
   router.get('/api/user/test', _jwt, controller.user.test);
