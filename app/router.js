@@ -14,13 +14,15 @@ module.exports = app => {
   router.get('/api/user/get_userinfo', _jwt, controller.user.getUserInfo);
   router.post('/api/user/edit_userinfo', _jwt, controller.user.editUserInfo);
 
-  router.post('/api/bill/add', _jwt, controller.bill.add);
-  router.get('/api/bill/list', _jwt, controller.bill.list);
-  router.get('/api/bill/detail', _jwt, controller.bill.detail);
-  router.post('/api/bill/update', _jwt, controller.bill.update);
+  router.get('/api/type/list', _jwt, controller.type.list); // 获取类型列表
 
-  router.post('/api/upload', _jwt, controller.upload.upload);
+  router.post('/api/bill/add', _jwt, controller.bill.add); // 新增账单
+  router.get('/api/bill/list', _jwt, controller.bill.list); // 账单类表
+  router.get('/api/bill/detail', _jwt, controller.bill.detail); // 账单详情
+  router.post('/api/bill/update', _jwt, controller.bill.update); // 修改账单
 
-  router.get('/api/user/test', _jwt, controller.user.test);
+  router.post('/api/upload', _jwt, controller.upload.upload); // 图片上传
+
+  router.get('/api/user/test', _jwt, controller.user.test); // 测试token
 
 };
