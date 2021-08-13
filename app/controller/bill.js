@@ -67,9 +67,10 @@ class BillController extends Controller {
       const list = await ctx.service.bill.list(user_id);
       // 过滤出类型和月份对应的账单列表
       const _list = list.filter(item => {
+        // console.log(typeof (type_id), typeof (item.type_id));
         // console.log(item.date, moment(Number(item.date)).format('YYYY-MM'));
         if (type_id !== 'all') {
-          return moment(Number(item.date)).format('YYYY-MM') === date && type_id === item.type_id;
+          return moment(Number(item.date)).format('YYYY-MM') === date && Number(type_id) === item.type_id;
         }
         return moment(Number(item.date)).format('YYYY-MM') === date;
       });
