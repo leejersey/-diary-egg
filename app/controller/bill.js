@@ -149,7 +149,7 @@ class BillController extends Controller {
   async detail() {
     const { ctx, app } = this;
     // 获取参数
-    const { id = '' } = ctx.query;
+    const { id = '' } = ctx.params;
     const token = ctx.request.header.authorization;
     // 获取当前用户信息
     const decode = await app.jwt.verify(token, app.config.jwt.secret);
