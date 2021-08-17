@@ -31,3 +31,7 @@ $ npm stop
 
 
 [egg]: https://eggjs.org
+
+### 使用模块
+egg- mysql
+egg-jwt
